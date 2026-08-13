@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeElara — Roblox Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-elevated: #1a1a24;
+      --text: #f0f0f5;
+      --text-muted: #9898a8;
+      --accent: #7b5cff;
+      --accent-glow: rgba(123, 92, 255, 0.4);
+      --cyan: #00e5ff;
+      --pink: #ff4d9e;
+      --border: rgba(255,255,255,0.08);
+      --success: #00e676;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Background grid effect */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(123, 92, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123, 92, 255, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.25s ease;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========== HEADER ========== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    header.scrolled {
+      border-bottom-color: var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    nav a:hover {
+      color: var(--cyan);
+    }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #9b7bff);
+      color: white;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(123, 92, 255, 0.15);
+      border: 1px solid rgba(123, 92, 255, 0.3);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 4.2rem);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 36px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-item h3 {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--cyan), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+
+    .stat-item p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ========== ABOUT ========== */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-image {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--bg-card);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+    }
+
+    .about-image-inner {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 0 60px var(--accent-glow);
+    }
+
+    .about-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    .about-content p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .tag {
+      padding: 6px 14px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ========== SKILLS ========== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: all 0.3s ease;
+    }
+
+    .skill-card:hover {
+      border-color: rgba(123, 92, 255, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+
+    .skill-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: rgba(123, 92, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 1.4rem;
+    }
+
+    .skill-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .skill-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ========== PROJECTS ========== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: rgba(123, 92, 255, 0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .project-thumb {
+      height: 200px;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(123,92,255,0.3), transparent 60%);
+    }
+
+    .project-thumb-icon {
+      font-size: 3.5rem;
+      position: relative;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .project-info {
+      padding: 24px;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .project-tag {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      background: rgba(123, 92, 255, 0.15);
+      color: var(--accent);
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .project-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .project-info p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .project-visits {
+      color: var(--cyan);
+      font-weight: 500;
+    }
+
+    /* ========== EXPERIENCE ========== */
+    .timeline {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 60px;
+      margin-bottom: 40px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 12px;
+      top: 6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .timeline-item h3 {
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .timeline-item .role {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .timeline-item p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .timeline-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    /* ========== CONTACT ========== */
+    .contact {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-inner {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer .logo {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    /* ========== MOBILE ========== */
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .about-image {
+        max-width: 280px;
+        margin: 0 auto;
+      }
+
+      .hero-stats {
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-btns {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Mobile Nav */
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .mobile-nav.active {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+    }
+
+    .close-nav {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">CodeElara</a>
+
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-cta">
+        <a href="#contact" class="btn btn-primary">Hire Me</a>
+        <button class="mobile-menu-btn" id="menuBtn" aria-label="Menu">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="close-nav" id="closeNav">✕</button>
+    <a href="#about" onclick="closeMobile()">About</a>
+    <a href="#skills" onclick="closeMobile()">Skills</a>
+    <a href="#projects" onclick="closeMobile()">Projects</a>
+    <a href="#experience" onclick="closeMobile()">Experience</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Available for hire</div>
+        <h1>Hi, I'm <span>CodeElara</span></h1>
+        <p class="hero-subtitle">Roblox Developer & Scripter</p>
+        <p class="hero-desc">
+          복잡한 시스템을 깔끔한 Lua 코드로 구현합니다. 
+          게임 메카닉, UI, 데이터스토어, 멀티플레이어 시스템까지 — 
+          플레이어가 기억에 남을 경험을 만듭니다.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <h3>40+</h3>
+            <p>Projects Completed</p>
+          </div>
+          <div class="stat-item">
+            <h3>2.1M+</h3>
+            <p>Total Visits</p>
+          </div>
+          <div class="stat-item">
+            <h3>3+</h3>
+            <p>Years Experience</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Who is CodeElara?</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-image">
+          <div class="about-image-inner">CE</div>
+        </div>
+        <div class="about-content">
+          <h3>Passionate about creating experiences</h3>
+          <p>
+            2023년부터 Roblox에서 본격적으로 개발을 시작했습니다. 
+            단순히 스크립트를 짜는 것을 넘어, 플레이어가 오래 머물고 싶어하는 
+            <strong style="color: var(--text);">게임 루프</strong>와 
+            <strong style="color: var(--text);">시스템 설계</strong>에 집중합니다.
+          </p>
+          <p>
+            클린 코드, 모듈화, 확장 가능한 아키텍처를 중요하게 생각합니다. 
+            혼자 개발할 때도, 팀과 협업할 때도 유지보수가 쉬운 코드를 작성합니다.
+          </p>
+          <div class="about-tags">
+            <span class="tag">Lua / Luau</span>
+            <span class="tag">Rojo</span>
+            <span class="tag">Knit Framework</span>
+            <span class="tag">ProfileService</span>
+            <span class="tag">UI Design</span>
+            <span class="tag">Game Design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section" id="skills" style="background: var(--bg-card);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Expertise</div>
+        <h2 class="section-title">What I Do</h2>
+        <p class="section-desc">Roblox 개발에 필요한 핵심 스킬을 보유하고 있습니다</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">⚙️</div>
+          <h3>Systems & Scripting</h3>
+          <p>전투 시스템, 인벤토리, 퀘스트, 이코노미 등 복잡한 게임 로직을 모듈화하여 구현합니다.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🎨</div>
+          <h3>UI / UX Design</h3>
+          <p>깔끔하고 반응형인 인터페이스를 설계합니다. TweenService와 애니메이션으로 생동감을 더합니다.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">💾</div>
+          <h3>Data & Backend</h3>
+          <p>ProfileService, DataStore2를 활용한 안전한 데이터 관리와 서버 권한 시스템을 구축합니다.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🌐</div>
+          <h3>Multiplayer</h3>
+          <p>RemoteEvents/Functions, 네트워크 최적화, 서버 권한 검증으로 안정적인 멀티플레이 경험을 만듭니다.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">🛠️</div>
+          <h3>Tooling & Workflow</h3>
+          <p>Rojo, Wally, Git을 활용한 현대적인 개발 워크플로우를 사용합니다. 팀 협업에 최적화되어 있습니다.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">📐</div>
+          <h3>Game Design</h3>
+          <p>플레이어 리텐션과 재미를 고려한 메카닉 설계부터 밸런싱까지 참여합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Portfolio</div>
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-desc">직접 개발하거나 핵심적으로 기여한 프로젝트들입니다</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <article class="project-card">
+          <div class="project-thumb">
+            <div class="project-thumb-icon">⚔️</div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="project-tag">Combat</span>
+              <span class="project-tag">Systems</span>
+              <span class="project-tag">Luau</span>
+            </div>
+            <h3>Blade Legends</h3>
+            <p>실시간 검술 전투 시스템과 스킬 콤보, 파티클 이펙트를 구현한 액션 어드벤처 게임입니다.</p>
+            <div class="project-meta">
+              <span class="project-visits">850K+ visits</span>
+              <span>Lead Scripter</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card">
+          <div class="project-thumb" style="background: linear-gradient(135deg, #0f2027, #203a43);">
+            <div class="project-thumb-icon">🏙️</div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="project-tag">Tycoon</span>
+              <span class="project-tag">Economy</span>
+              <span class="project-tag">DataStore</span>
+            </div>
+            <h3>Neon City Tycoon</h3>
+            <p>대규모 경제 시스템과 자동 저장, 업그레이드 트리를 설계한 타이쿤 게임입니다.</p>
+            <div class="project-meta">
+              <span class="project-visits">1.2M+ visits</span>
+              <span>Full Stack</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card">
+          <div class="project-thumb" style="background: linear-gradient(135deg, #1a0533, #2d1b4e);">
+            <div class="project-thumb-icon">🧙</div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="project-tag">RPG</span>
+              <span class="project-tag">UI</span>
+              <span class="project-tag">Quests</span>
+            </div>
+            <h3>Echoes of Aether</h3>
+            <p>퀘스트 시스템, 인벤토리 UI, 대화형 NPC를 구현한 판타지 RPG 프로토타입입니다.</p>
+            <div class="project-meta">
+              <span class="project-visits">320K+ visits</span>
+              <span>UI + Systems</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="project-card">
+          <div class="project-thumb" style="background: linear-gradient(135deg, #1c2526, #2c3e50);">
+            <div class="project-thumb-icon">🚗</div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="project-tag">Simulator</span>
+              <span class="project-tag">Vehicles</span>
+              <span class="project-tag">Physics</span>
+            </div>
+            <h3>Velocity Drive</h3>
+            <p>커스텀 차량 물리와 레이싱 시스템을 개발한 드라이빙 시뮬레이터입니다.</p>
+            <div class="project-meta">
+              <span class="project-visits">410K+ visits</span>
+              <span>Physics Dev</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="section" id="experience" style="background: var(--bg-card);">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Journey</div>
+        <h2 class="section-title">Experience</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2025 — Present</div>
+          <h3>Freelance Roblox Developer</h3>
+          <div class="role">Independent</div>
+          <p>다양한 클라이언트를 위해 전투 시스템, UI, 데이터 관리 등 커미션 작업을 수행 중입니다.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2024 — 2025</div>
+          <h3>Lead Scripter</h3>
+          <div class="role">Studio Project — Blade Legends</div>
+          <p>4인 팀에서 전투 시스템과 스킬 프레임워크를 담당했습니다. 850K+ 방문을 기록했습니다.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2023 — 2024</div>
+          <h3>Junior Developer</h3>
+          <div class="role">Indie Studio</div>
+          <p>타이쿤 및 시뮬레이터 장르의 기능 개발과 버그 픽스를 담당하며 실력을 쌓았습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="section-label">Contact</div>
+        <h2 class="section-title">Let's build something</h2>
+        <p class="section-desc" style="margin-bottom: 0;">
+          프로젝트 의뢰, 협업, 또는 그냥 이야기하고 싶으시다면 언제든 연락 주세요.
+        </p>
+
+        <div class="contact-links">
+          <a href="https://www.roblox.com" target="_blank" class="contact-btn">
+            <span>🎮</span> Roblox Profile
+          </a>
+          <a href="https://discord.com" target="_blank" class="contact-btn">
+            <span>💬</span> Discord
+          </a>
+          <a href="mailto:codeelara@example.com" class="contact-btn">
+            <span>✉️</span> Email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <a href="#" class="logo">CodeElara</a>
+      <p>© 2026 CodeElara. Built with passion for Roblox.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const closeNav = document.getElementById('closeNav');
+
+    menuBtn.addEventListener('click', () => mobileNav.classList.add('active'));
+    closeNav.addEventListener('click', closeMobile);
+
+    function closeMobile() {
+      mobileNav.classList.remove('active');
+    }
+  </script>
+</body>
+</html>
